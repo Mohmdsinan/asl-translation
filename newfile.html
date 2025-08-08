@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerspelling Translator</title>
+    <style>
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 1200px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 120px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 25px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .translate-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .translate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .translate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .translation-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 400px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .translation-section.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        }
+
+        .video-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .asl-video {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: #000;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .video-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .video-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .phrase-info {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .phrase-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .phrase-info p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .sign-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            justify-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sign-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 80px;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .sign-card.current {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            border: 2px solid #667eea;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sign-emoji {
+            font-size: 3rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .sign-letter {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .sign-description {
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        .fingerspell-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .speed-slider {
+            width: 120px;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+            padding: 50px 20px;
+        }
+
+        .quick-phrases {
+            margin-top: 15px;
+        }
+
+        .quick-phrases p {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .phrase-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .phrase-btn {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .phrase-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .phrase-btn.asl-phrase {
+            background: rgba(118, 75, 162, 0.1);
+            border-color: #764ba2;
+            color: #764ba2;
+        }
+
+        .phrase-btn.asl-phrase:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e1e5e9;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .translate-btn {
+                width: 100%;
+            }
+
+            .sign-display {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+                gap: 10px;
+            }
+
+            .sign-emoji {
+                font-size: 2.5rem;
+            }
+
+            .asl-video {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fingerspelling Translator</h1>
+            <p>Convert text to ASL fingerspelling</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="textInput">Enter text to translate:</label>
+                <textarea 
+                    id="textInput" 
+                    class="text-input" 
+                    placeholder="Type your message here..."
+                    maxlength="200"
+                ></textarea>
+            </div>
+
+            <div class="controls">
+                <button id="translateBtn" class="translate-btn" disabled>
+                    🤟 Translate to Fingerspelling
+                </button>
+            </div>
+        </div>
+
+        <div id="translationSection" class="translation-section">
+            <div id="placeholder" class="placeholder">
+                <p>👋 Your fingerspelling translation will appear here</p>
+                <p style="margin-top: 10px; font-size: 1rem; color: #999;">
+                    Enter some text above to begin translation
+                </p>
+            </div>
+
+            <div id="fingerspellSection" style="display: none;">
+                <div id="currentPhrase" class="phrase-info" style="display: none;">
+                    <h3>Fingerspelling:</h3>
+                    <p id="phraseDisplay"></p>
+                </div>
+
+                <div id="progressBar" class="progress-bar" style="display: none;">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+
+                <div id="signDisplay" class="sign-display"></div>
+
+                <div id="fingerspellControls" class="fingerspell-controls" style="display: none;">
+                    <button id="playBtn" class="control-btn">▶️ Play</button>
+                    <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
+                    <button id="restartBtn" class="control-btn">🔄 Restart</button>
+                </div>
+
+                <div class="speed-control" id="speedControlSection" style="display: none;">
+                    <label for="speedSlider">Fingerspelling Speed:</label>
+                    <input 
+                        type="range" 
+                        id="speedSlider" 
+                        class="speed-slider" 
+                        min="0.5" 
+                        max="3" 
+                        step="0.1" 
+                        value="1"
+                    >
+                    <span id="speedValue">1x</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ASL_ALPHABET = {};
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ '.split('').forEach(char => {
+            if (char === ' ') {
+                ASL_ALPHABET[char] = {
+                    image: 'Alphabets/space.jpg',
+                    description: 'Space / pause'
+                };
+            } else {
+                ASL_ALPHABET[char] = {
+                    image: `Alphabets/${char.toLowerCase()}.png`,
+                    description: `${char} sign`
+                };
+            }
+        });
+
+        class SignLanguageTranslator {
+            constructor() {
+                this.textInput = document.getElementById('textInput');
+                this.translateBtn = document.getElementById('translateBtn');
+                this.translationSection = document.getElementById('translationSection');
+                this.placeholder = document.getElementById('placeholder');
+                this.fingerspellSection = document.getElementById('fingerspellSection');
+
+                this.currentIndex = 0;
+                this.currentText = '';
+                this.isPlaying = false;
+
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                this.translateBtn.addEventListener('click', () => this.translateText());
+                this.textInput.addEventListener('input', () => {
+                    this.translateBtn.disabled = this.textInput.value.trim().length === 0;
+                });
+
+                document.getElementById('playBtn').addEventListener('click', () => this.playFingerspelling());
+                document.getElementById('pauseBtn').addEventListener('click', () => this.pauseFingerspelling());
+                document.getElementById('restartBtn').addEventListener('click', () => this.restartFingerspelling());
+
+                const speedSlider = document.getElementById('speedSlider');
+                speedSlider.addEventListener('input', (e) => {
+                    document.getElementById('speedValue').textContent = e.target.value + 'x';
+                });
+            }
+
+            translateText() {
+                const text = this.textInput.value.trim().toUpperCase();
+                if (!text) return;
+
+                this.placeholder.style.display = 'none';
+                this.translationSection.classList.add('active');
+                this.fingerspellSection.style.display = 'block';
+                document.getElementById('currentPhrase').style.display = 'block';
+                document.getElementById('phraseDisplay').textContent = text;
+                document.getElementById('fingerspellControls').style.display = 'flex';
+                document.getElementById('speedControlSection').style.display = 'flex';
+
+                this.currentText = text;
+                this.currentIndex = 0;
+
+                this.createSignCards();
+                this.playFingerspelling();
+            }
+
+            createSignCards() {
+                const signDisplay = document.getElementById('signDisplay');
+                signDisplay.innerHTML = '';
+
+                for (let i = 0; i < this.currentText.length; i++) {
+                    const char = this.currentText[i];
+                    const signData = ASL_ALPHABET[char] || ASL_ALPHABET[' '];
+
+                    const card = document.createElement('div');
+                    card.className = 'sign-card';
+                    card.id = `sign-${i}`;
+
+                    card.innerHTML = `
+                        <img src="${signData.image}" alt="${char}" class="sign-image">
+                        <div class="sign-letter">${char === ' ' ? 'SPACE' : char}</div>
+                        <div class="sign-description">${signData.description}</div>
+                    `;
+
+                    signDisplay.appendChild(card);
+                }
+            }
+
+            async playFingerspelling() {
+                if (this.isPlaying) return;
+                this.isPlaying = true;
+
+                document.getElementById('playBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+
+                const speed = parseFloat(document.getElementById('speedSlider').value);
+                const delay = 1200 / speed;
+
+                for (let i = this.currentIndex; i < this.currentText.length; i++) {
+                    if (!this.isPlaying) break;
+                    this.currentIndex = i;
+                    this.highlightCurrentSign(i);
+                    this.updateProgress();
+                    await this.sleep(delay);
+                }
+
+                if (this.isPlaying) this.fingerspellingComplete();
+            }
+
+            pauseFingerspelling() {
+                this.isPlaying = false;
+                document.getElementById('playBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+            }
+
+            restartFingerspelling() {
+                this.pauseFingerspelling();
+                this.currentIndex = 0;
+                this.clearHighlights();
+                this.updateProgress();
+            }
+
+            fingerspellingComplete() {
+                this.pauseFingerspelling();
+                setTimeout(() => {
+                    this.clearHighlights();
+                    this.currentIndex = 0;
+                    this.updateProgress();
+                }, 1000);
+            }
+
+            highlightCurrentSign(index) {
+                this.clearHighlights();
+                const card = document.getElementById(`sign-${index}`);
+                if (card) card.classList.add('current');
+            }
+
+            clearHighlights() {
+                document.querySelectorAll('.sign-card').forEach(card => card.classList.remove('current'));
+            }
+
+            updateProgress() {
+                const progressFill = document.getElementById('progressFill');
+                const progressBar = document.getElementById('progressBar');
+                if (this.currentText.length > 0) {
+                    progressBar.style.display = 'block';
+                    const progress = (this.currentIndex / this.currentText.length) * 100;
+                    progressFill.style.width = progress + '%';
+                }
+            }
+
+            sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new SignLanguageTranslator();
+        });
+    </script>
+</body>
+</html>
