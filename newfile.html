@@ -1,81 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fingerspelling Translator</title>
-    <style src="style1.css">
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fingerspelling Translator</title>
+  <link rel="stylesheet" href="style.css">
+    
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Fingerspelling Translator</h1>
-            <p>Convert text to ASL fingerspelling</p>
-        </div>
-
-        <div class="input-section">
-            <div class="input-group">
-                <label for="textInput">Enter text to translate:</label>
-                <textarea 
-                    id="textInput" 
-                    class="text-input" 
-                    placeholder="Type your message here..."
-                    maxlength="200"
-                ></textarea>
-            </div>
-
-            <div class="controls">
-                <button id="translateBtn" class="translate-btn" disabled>
-                    🤟 Translate to Fingerspelling
-                </button>
-            </div>
-        </div>
-
-        <div id="translationSection" class="translation-section">
-            <div id="placeholder" class="placeholder">
-                <p>👋 Your fingerspelling translation will appear here</p>
-                <p style="margin-top: 10px; font-size: 1rem; color: #999;">
-                    Enter some text above to begin translation
-                </p>
-            </div>
-
-            <div id="fingerspellSection" style="display: none;">
-                <div id="currentPhrase" class="phrase-info" style="display: none;">
-                    <h3>Fingerspelling:</h3>
-                    <p id="phraseDisplay"></p>
-                </div>
-
-                <div id="progressBar" class="progress-bar" style="display: none;">
-                    <div id="progressFill" class="progress-fill"></div>
-                </div>
-
-                <div id="signDisplay" class="sign-display"></div>
-
-                <div id="fingerspellControls" class="fingerspell-controls" style="display: none;">
-                    <button id="playBtn" class="control-btn">▶️ Play</button>
-                    <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
-                    <button id="restartBtn" class="control-btn">🔄 Restart</button>
-                </div>
-
-                <div class="speed-control" id="speedControlSection" style="display: none;">
-                    <label for="speedSlider">Fingerspelling Speed:</label>
-                    <input 
-                        type="range" 
-                        id="speedSlider" 
-                        class="speed-slider" 
-                        min="0.5" 
-                        max="3" 
-                        step="0.1" 
-                        value="1"
-                    >
-                    <span id="speedValue">1x</span>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>Fingerspelling Translator</h1>
+      <p>Convert text to ASL fingerspelling</p>
     </div>
 
-    <script src="script1.js">
-    </script>
+    <div class="input-section">
+      <div class="input-group">
+        <label for="textInput">Enter text to translate:</label>
+        <textarea id="textInput" class="text-input" placeholder="Type your message here..." maxlength="200"></textarea>
+      </div>
+
+      <div class="controls">
+        <button id="translateBtn" class="translate-btn" disabled>
+          🤟 Translate to Fingerspelling
+        </button>
+      </div>
+    </div>
+
+    <div id="translationSection" class="translation-section">
+      <div id="placeholder" class="placeholder">
+        <p>👋 Your fingerspelling translation will appear here</p>
+        <p style="margin-top: 10px; font-size: 1rem; color: #999;">
+          Enter some text above to begin translation
+        </p>
+      </div>
+
+      <div id="fingerspellSection" style="display: none;">
+        <div id="currentPhrase" class="phrase-info" style="display: none;">
+          <h3>Fingerspelling:</h3>
+          <p id="phraseDisplay"></p>
+        </div>
+
+        <div id="progressBar" class="progress-bar" style="display: none;">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+
+        <div id="signDisplay" class="sign-display"></div>
+
+        <div id="fingerspellControls" class="fingerspell-controls" style="display: none;">
+          <button id="playBtn" class="control-btn">▶️ Play</button>
+          <button id="pauseBtn" class="control-btn">⏸️ Pause</button>
+          <button id="restartBtn" class="control-btn">🔄 Restart</button>
+        </div>
+
+        <div class="speed-control" id="speedControlSection" style="display: none;">
+          <label for="speedSlider">Fingerspelling Speed:</label>
+          <input type="range" id="speedSlider" class="speed-slider" min="0.5" max="3" step="0.1" value="1">
+          <span id="speedValue">1x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
