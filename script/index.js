@@ -2,7 +2,7 @@ const ASL_ALPHABET = {};
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ '.split('').forEach(char => {
       if (char === ' ') {
         ASL_ALPHABET[char] = {
-          image: 'Alphabets/space.jpg',
+          image: 'Alphabets/space.png',
           description: 'Space / pause'
         };
       } else {
