@@ -52,6 +52,10 @@ nav {
     gap: 3rem;
 }
 
+.home-logo{
+    color: #000;
+}
+
 nav a {
     color: white;
     text-decoration: none;
@@ -79,6 +83,18 @@ nav a::after {
 nav a:hover::after {
     width: 100%;
 }
+.active::after {
+     content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 1px;
+    background: #000;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+
 
 main {
     flex: 1;
@@ -112,18 +128,22 @@ main {
     opacity: 0;
     animation: fadeInUp 1s ease forwards 0.8s;
 }
-
+.hero-paragraph{
+    color: rgba(255, 255, 255, 0.7);
+    
+}
 .cta-button {
     display: inline-block;
     padding: 1rem 3rem;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid #000;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
     text-decoration: none;
-    font-weight: 300;
+    font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     opacity: 0;
     animation: fadeInUp 1s ease forwards 1.1s;

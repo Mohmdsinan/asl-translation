@@ -1,3 +1,179 @@
-<p>shamil
-    sinan
-</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact</title>
+  <meta name="description" content="Get in touch with the SignText team for support, feedback, or partnership inquiries." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --card:#f7f8fa;
+      --text:#0b1220;
+      --accent:#0a78d1;
+      --muted:#556074;
+      --radius:14px;
+      --max-width:980px;
+      --container-pad:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0; color:var(--text); background:linear-gradient(180deg,#fbfdff, #f1f6fb);
+      line-height:1.5;
+    }
+    .wrap{
+      max-width:var(--max-width); margin:32px auto; padding:var(--container-pad);
+    }
+    a{color:var(--accent); text-decoration:none}
+    header.header{
+      display:flex; gap:18px; align-items:center; justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#5ec8ff);
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;
+      box-shadow:0 6px 18px rgba(10,120,209,0.12);
+    }
+    h1{font-size:1.6rem;margin:0}
+    p.lead{color:var(--muted);margin:8px 0 0}
+    .card{
+      background:var(--card); padding:18px;border-radius:var(--radius); box-shadow:0 6px 30px rgba(16,24,40,0.04);
+    }
+    .grid{
+      display:grid; grid-template-columns: 1fr; gap:18px;
+    }
+    @media(min-width:880px){
+      .grid{grid-template-columns: 1fr 1fr;}
+    }
+
+    /* form */
+    form{display:flex;flex-direction:column;gap:12px}
+    label{font-weight:600;margin-bottom:4px;display:block}
+    input, textarea{
+      width:100%;padding:10px;border:1px solid rgba(0,0,0,0.1);border-radius:8px;
+      font-size:1rem; font-family:inherit;
+    }
+    input:focus, textarea:focus{outline:3px solid #cfe9ff;outline-offset:2px}
+    textarea{resize:vertical;min-height:120px}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+    .btn:disabled{opacity:0.6;cursor:not-allowed}
+
+    /* contact info list */
+    .info-list{list-style:none;margin:0;padding:0}
+    .info-list li{margin:8px 0;color:var(--muted)}
+    .info-list strong{color:var(--text)}
+
+    /* map */
+    .map{
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:#ccc;
+      min-height:200px;
+    }
+
+    footer{margin-top:26px;color:var(--muted);font-size:0.9rem}
+
+    /* accessibility: skip link */
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:12px;top:12px;width:auto;height:auto;padding:8px;background:#000;color:#fff;border-radius:6px;z-index:9999}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="wrap">
+    <header class="header" role="banner" aria-label="Site header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">ST</div>
+        <div>
+          <h1>SignText</h1>
+          <p class="lead">Bridging text and sign language for inclusive communication.</p>
+        </div>
+      </div>
+      <nav aria-label="Top navigation">
+        <a href="/">Home</a> 
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1" aria-labelledby="contact-title">
+      <section class="card" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact Us</h2>
+        <p>We’d love to hear from you! Whether you have feedback, need support, or want to partner with us — drop us a message below.</p>
+
+        <div class="grid">
+          <!-- Form -->
+          <div>
+            <form id="contactForm" novalidate>
+              <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your full name" />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com" />
+              </div>
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="Type your message here..."></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <aside>
+            <div class="card">
+              <h3>Other ways to reach us</h3>
+              <ul class="info-list">
+                <li><strong>Email:</strong> <a href="mailto:hello@signtext.example">hello@signtext.example</a></li>
+                <li><strong>Phone:</strong> +91-98765-43210</li>
+                <li><strong>Address:</strong> 123 Inclusion Street, Tech City, India</li>
+              </ul>
+            </div>
+
+            <div class="map" aria-label="Location map">
+              <!-- Replace with your Google Maps embed -->
+              <iframe 
+                src="https://maps.google.com/maps?q=New%20Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                width="100%" height="200" frameborder="0" style="border:0" allowfullscreen>
+              </iframe>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <footer>
+        <p>© <span id="year"></span> SignText — Connecting the world through sign language.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple form validation
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if(!name || !email || !message){
+        alert('Please fill out all fields.');
+        return;
+      }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      alert('Thank you! Your message has been sent.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
