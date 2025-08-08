@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSpeak - Text to Sign Language</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles/interface.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">SignSpeak</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#translate">Translate</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">Speak Without Words</h1>
+                <p class="hero-subtitle">Transform your text into beautiful sign language with cutting-edge AI technology</p>
+                
+                <div class="translator-container" id="translate">
+                    <div class="input-section">
+                        <label class="input-label">Enter your text</label>
+                        <textarea 
+                            class="text-input" 
+                            placeholder="Type your message here..."
+                            rows="4"
+                            id="textInput"
+                        ></textarea>
+                    </div>
+
+                    <div class="control-panel">
+                        <select class="language-selector" id="signLanguage">
+                            <option value="asl">American Sign Language (ASL)</option>
+                            <option value="bsl">British Sign Language (BSL)</option>
+                            <option value="isl">Indian Sign Language (ISL)</option>
+                            <option value="csl">Chinese Sign Language (CSL)</option>
+                        </select>
+                        <button class="translate-btn" onclick="translateText()">Translate to Sign Language</button>
+                    </div>
+
+                    <div class="output-section">
+                        <div class="video-container" id="videoContainer">
+                            <div class="video-placeholder">
+                                <div class="icon">🤟</div>
+                                <p>Your sign language video will appear here</p>
+                            </div>
+                        </div>
+                        <div class="output-controls">
+                            <button class="control-btn" onclick="playVideo()">▶️ Play</button>
+                            <button class="control-btn" onclick="pauseVideo()">⏸️ Pause</button>
+                            <button class="control-btn" onclick="downloadVideo()">⬇️ Download</button>
+                            <button class="control-btn" onclick="shareVideo()">📤 Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="about">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Precision Translation</h3>
+                    <p class="feature-description">Advanced AI algorithms ensure accurate translation of text to sign language with proper grammar and context understanding.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Real-time Processing</h3>
+                    <p class="feature-description">Get instant sign language translations with our high-performance processing engine optimized for speed and accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="feature-title">Multiple Languages</h3>
+                    <p class="feature-description">Support for various sign languages including ASL, BSL, ISL, and more, making communication accessible worldwide.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script/interface.js">
+    </script>
+</body>
+</html>
