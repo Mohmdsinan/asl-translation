@@ -35,7 +35,7 @@ For Software:
 open index.html
 
 ### Project Documentation
-For Software:
+For Software: This project helps to translate the sentance into its corresponding sign language of each letter.
 
 # Screenshots (Add at least 3)
 ![Screenshot1](Add screenshot 1 here with proper name)
